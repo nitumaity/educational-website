@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeLearn Academy - Educational Coding Platform</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; line-height: 1.6; color: #333; }
+        header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 0; }
+        nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        nav ul { display: flex; list-style: none; }
+        nav li { margin-left: 2rem; }
+        nav a { color: white; text-decoration: none; font-weight: bold; }
+        .hero { background: #f4f4f4; padding: 4rem 2rem; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; color: #333; }
+        .hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+        .btn { background: #667eea; color: white; padding: 1rem 2rem; text-decoration: none; border-radius: 5px; font-weight: bold; }
+        .courses { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
+        .courses h2 { text-align: center; margin-bottom: 3rem; font-size: 2.5rem; }
+        .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .course-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); transition: transform 0.3s; }
+        .course-card:hover { transform: translateY(-5px); }
+        .course-card img { width: 100%; height: 200px; object-fit: cover; }
+        .course-info { padding: 1.5rem; }
+        .course-info h3 { margin-bottom: 1rem; color: #333; }
+        .try-it { background: #28a745; color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; cursor: pointer; margin-top: 1rem; }
+        .interactive { max-width: 800px; margin: 4rem auto; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        #code-output { background: #f8f9fa; padding: 1rem; border: 1px solid #ddd; margin-top: 1rem; min-height: 100px; font-family: monospace; }
+        footer { background: #333; color: white; text-align: center; padding: 2rem; margin-top: 4rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <h2>CodeLearn Academy</h2>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#practice">Practice</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <h1>Learn to Code, Build Amazing Things</h1>
+        <p>Interactive coding lessons for beginners. Start your journey today with HTML, CSS, and JavaScript.</p>
+        <a href="#courses" class="btn">Start Learning</a>
+    </section>
+
+    <section id="courses" class="courses">
+        <h2>Featured Courses</h2>
+        <div class="course-grid">
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200/667eea/white?text=HTML" alt="HTML Course">
+                <div class="course-info">
+                    <h3>HTML Fundamentals</h3>
+                    <p>Build the structure of web pages with semantic HTML5 elements and forms.</p>
+                    <button class="try-it" onclick="alert('Start HTML Course!')">Try Now</button>
+                </div>
+            </div>
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200/764ba2/white?text=CSS" alt="CSS Course">
+                <div class="course-info">
+                    <h3>CSS Styling</h3>
+                    <p>Master Flexbox, Grid, animations, and responsive design techniques.</p>
+                    <button class="try-it" onclick="alert('Start CSS Course!')">Try Now</button>
+                </div>
+            </div>
+            <div class="course-card">
+                <img src="https://via.placeholder.com/300x200/28a745/white?text=JS" alt="JavaScript Course">
+                <div class="course-info">
+                    <h3>JavaScript Basics</h3>
+                    <p>Add interactivity with variables, functions, events, and DOM manipulation.</p>
+                    <button class="try-it" onclick="alert('Start JavaScript Course!')">Try Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="practice" class="interactive">
+        <h2>Try JavaScript Live</h2>
+        <p>Write code and see results instantly. Experiment with console.log and basic operations.</p>
+        <textarea id="code-input" rows="5" cols="50" placeholder="Enter JavaScript code here... e.g., console.log('Hello, World!');">console.log('Hello, CodeLearn!');</textarea><br>
+        <button onclick="runCode()">Run Code</button>
+        <div id="code-output"></div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 CodeLearn Academy. Learn coding through hands-on practice. Built with HTML, CSS, and JavaScript.</p>
+    </footer>
+
+    <script>
+        function runCode() {
+            const code = document.getElementById('code-input').value;
+            const output = document.getElementById('code-output');
+            try {
+                // Create a safe execution context
+                const consoleLog = [];
+                const oldLog = console.log;
+                console.log = (...args) => consoleLog.push(args.map(String).join(' '));
+                
+                eval(code);
+                
+                console.log = oldLog;
+                output.innerHTML = consoleLog.length > 0 ? 
+                    consoleLog.map(log => `<div>${log}</div>`).join('') : 
+                    '<div>Code executed successfully! No output.</div>';
+            } catch (error) {
+                output.innerHTML = `<div style="color: red;">Error: ${error.message}</div>`;
+            }
+        }
+        
+        // Auto-run initial code
+        runCode();
+    </script>
+</body>
+</html>
